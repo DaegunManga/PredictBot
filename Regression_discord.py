@@ -3,7 +3,7 @@ import Regression_py as rp
 from discord.ext import commands
 import Regression2_py as rp2
 from discord.ui import Button, View
-
+import config
 
 client = commands.Bot(command_prefix='/',intents=discord.Intents.all())
 
@@ -106,4 +106,4 @@ async def on_message(message):
         await message.channel.send("Hi" , view = view)
         await client.wait_for("button_click")
 
-client.run('MTAzODEzNjU2MDU5NzYxODc0MQ.GQ06KM.BIa6cFItDulaqkWaqMjEwWjx81vdrKQlUNUcto')
+client.run(config.dis_api_key)
