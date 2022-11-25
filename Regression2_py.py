@@ -2,7 +2,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from bs4 import BeautifulSoup
+import config 
+import xmltodict
+import requests
 
 import plotly.io as pi
 import plotly.graph_objs as go
@@ -11,29 +13,36 @@ import plotly.graph_objs as go
 from prophet import Prophet
 from prophet.plot import plot_plotly, add_changepoints_to_plot
 
+from datetime import datetime
+
 class Regression2_f :
-    def __init__(self) :
-        # 데이터 읽기 
-        url = 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv'
-        df = pd.read_csv(url, error_bad_lines=False)
-        df_korea = df[df['location'] == 'South Korea'] # 한국 확진자수 데이터 추출
-        df_korea1 = df_korea.T[3:] # 한국 확진자수 데이터프레임 생성
-        # 한국의 확진자 시계열 데이터
-        df_korea = df_korea.reset_index().rename(columns={'date': 'Date', 'total_cases': 'Confirmed'})
-        df_korea['Date'] = pd.to_datetime(df_korea['Date'])
-        fig = go.Figure()
-        fig.add_trace(
-            go.Scatter(
-                x=df_korea.Date,
-                y=df_korea.total_vaccinations
-            )
-        )
-        self.df_korea = df_korea
+    def load_data(self) :
+        start_day = '20200101'
+        decoding_key = config.api_key
+        day = datetime.today().strftime('%Y%m%d') #오늘 날짜
+        params ={'serviceKey' : decoding_key, 'pageNo' : '1', 'numOfRows' : '10', 'startCreateDt' : start_day , 'endCreateDt' : day }
+        xml = requests.get('http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson', params=params)
+        xml_dict = xmltodict.parse(xml.text)    
+        data = xml_dict['response']['body']['items']['item']
+        self.df = pd.DataFrame(data)
+        self.df = self.df.astype({'decideCnt' : 'int'})
+        L = [] 
+        for y in range (0, len(self.df)) : 
+            if y == len(self.df)-1 :
+                L.append(self.df.iloc[y,2])
+                break
+            L.append(self.df.iloc[y, 2] - self.df.iloc[y+1, 2])
+        self.df['new'] = L
+
+        self.df = self.df.drop([len(self.df)-1])
+        self.df['stateDt'] = pd.to_datetime(self.df['stateDt'])
+        self.df_korea = self.df 
+    
         
     def pred_Prophet (self) :
         df_prophet = self.df_korea.rename(columns={
-            'Date': 'ds',
-            'new_cases': 'y'
+            'stateDt': 'ds',
+            'new': 'y'
         })
         m = Prophet(
             changepoint_prior_scale=0.2, # 디폴트값 = 0.05

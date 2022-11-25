@@ -10,6 +10,7 @@ client = commands.Bot(command_prefix='/',intents=discord.Intents.all())
 
 f = rp.Regression_f()
 f2 = rp2.Regression2_f()
+f2.load_data()
 f2.pred_Prophet()
 
 @client.event #다음으로, Client의 인스턴스를 만듭니다. 이 클라이언트는 디스코드로의 연결입니다.
@@ -23,10 +24,10 @@ async def on_message(message):
     if message.content.startswith('hello'):
         await message.channel.send('Hello!')
 
-
-
-
-
+    if message.content.startswith('reload'):
+        await message.channel.send('Ok wait a Minute Please!')
+        f2.load_data()
+        f2.pred_Prophet()
 
 
     if message.content.startswith("예측") :
