@@ -66,17 +66,17 @@ class Regression2_f :
 
         # 그래프
         fig = plot_plotly(m, forecast)
-        pi.write_image(fig, file = 'Prophet_fig.png',format='png',engine='kaleido')
+        pi.write_image(fig, file = './../fig/Prophet_fig.png',format='png',engine='kaleido')
         
         plt.clf()
         # 체인지 포인트 그래프
         fig2 = m.plot(forecast)
         a = add_changepoints_to_plot(fig2.gca(), m, forecast)
-        plt.savefig('change_point_fig.png')
+        plt.savefig('./../fig/change_point_fig.png')
 
         plt.clf()
         fig3 = m.plot_components(forecast)
-        plt.savefig('detail_fig.png')
+        plt.savefig('./../fig/detail_fig.png')
         self.forecast = forecast
 
     def return_info (self) :

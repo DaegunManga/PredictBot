@@ -24,7 +24,7 @@ async def on_message(message):
     if message.content.startswith('hello'):
         await message.channel.send('Hello!')
 
-    if message.content.startswith('reload'):
+    if message.content.startswith('새로고침'):
         await message.channel.send('Ok wait a Minute Please!')
         f2.load_data()
         f2.pred_Prophet()
@@ -45,7 +45,7 @@ async def on_message(message):
             await message.channel.send("테스트 할 총 데이터의 개수 : " + str(test_num))
             await message.channel.send('----------------------------------')
 
-            image = discord.File("Linear_fig.png", filename="Linear_fig.png")
+            image = discord.File("./../fig/Linear_fig.png", filename="Linear_fig.png")
             await message.channel.send(file=image)
             embed=discord.Embed(title="LinearRegression 점수", color=0x05ff09)
             embed.set_author(name="Made by. MANGA - AI Department", url="https://github.com/MINO-LOVER", icon_url="https://avatars.githubusercontent.com/u/69490709?s=400&u=0c1c589130bd156f0e591f43f320bf9511e24ded&v=4")
@@ -55,7 +55,7 @@ async def on_message(message):
             embed.add_field(name="Rsuqare", value=round(a4), inline=True)
             await message.channel.send(embed=embed)
 
-            image = discord.File("poly_fig.png", filename="poly_fig.png")
+            image = discord.File("./../fig/poly_fig.png", filename="poly_fig.png")
             await message.channel.send(file=image)
             embed=discord.Embed(title="PolyNomialRegression 점수", color=0x05ff09)
             embed.set_author(name="Made by. MANGA - AI Department", url="https://github.com/MINO-LOVER", icon_url="https://avatars.githubusercontent.com/u/69490709?s=400&u=0c1c589130bd156f0e591f43f320bf9511e24ded&v=4")
@@ -73,7 +73,7 @@ async def on_message(message):
         
         async def button2_callback(interacton) :
             await interacton.response.send_message("Let's Go!")
-            image = discord.File("Prophet_fig.png", filename="Linear_fig.png")
+            image = discord.File("./../fig/Prophet_fig.png", filename="Linear_fig.png")
             await message.channel.send(file=image)
 
             button1 = Button(label = "More(With Event, Trend)", style = discord.ButtonStyle.green)
@@ -83,11 +83,11 @@ async def on_message(message):
                 await message.channel.send(str(df_future.loc[max(df_future.index)- y, "ds"])[0 : 10] + ' : ' + str(df_future.loc[max(df_future.index)-y, "yhat"]) + "명")
 
             async def button_callback(interacton) :
-                image = discord.File("change_point_fig.png", filename="change_point_fig.png")
+                image = discord.File("./../fig/change_point_fig.png", filename="change_point_fig.png")
                 await interacton.response.send_message(file=image)
 
             async def button2_callback(interacton) :
-                image = discord.File("detail_fig.png", filename="detail_fig.png")
+                image = discord.File("./../fig/detail_fig.png", filename="detail_fig.png")
                 await interacton.response.send_message(file=image)
 
             button1.callback = button_callback
@@ -95,7 +95,7 @@ async def on_message(message):
             view = View()
             view.add_item(button1)
             view.add_item(button2)
-            await message.channel.send("Hi" , view = view)
+            await message.channel.send("추가 정보" , view = view)
             await client.wait_for("button_click")
 
         
@@ -104,7 +104,7 @@ async def on_message(message):
         view = View()
         view.add_item(button1)
         view.add_item(button2)
-        await message.channel.send("Hi" , view = view)
+        await message.channel.send("사용할 모듈을 정해주세요." , view = view)
         await client.wait_for("button_click")
 
 client.run(config.dis_api_key)

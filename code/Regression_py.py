@@ -65,7 +65,7 @@ class Regression_f () :
         plt.xlabel('day')
         plt.ylabel('amount')
 
-        plt.savefig('Linear_fig.png')
+        plt.savefig('./../fig/Linear_fig.png')
         return mean_absolute_error(self.y_test, y_pred), mean_squared_error(self.y_test, y_pred), mean_squared_error(self.y_test, y_pred, squared = False), r2_score(self.y_test, y_pred), str(self.reg.score(self.X_test, self.y_test)*100)[0:2] + '점'
 
     def polyRegressionf (self) :
@@ -91,7 +91,7 @@ class Regression_f () :
         y_pred = self.lin_reg.predict(self.poly_reg.fit_transform(self.X_test))
         a = str(self.lin_reg.score(X_poly, self.y_test)*100)[0:2]
 
-        plt.savefig('poly_fig.png')
+        plt.savefig('./../fig/poly_fig.png')
         return mean_absolute_error(self.y_test, y_pred), mean_squared_error(self.y_test, y_pred), mean_squared_error(self.y_test, y_pred, squared = False), r2_score(self.y_test, y_pred), a + '점'
 
     def return_predict (self) :
