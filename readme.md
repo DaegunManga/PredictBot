@@ -32,6 +32,34 @@
 ###### pred_Prophet 함수 : Prophet 모듈을 이용한 예측 모델 구현
 ###### return_info 함수 : 예측 모델을 통한 일주일간의 예측치를 반환
 
+
+## 디스코드 이용 사례
+
+### 예측 명령어 실행
+![image](https://user-images.githubusercontent.com/69490709/224373632-cd7417ed-91e3-4c96-a002-1264243cb725.png)
+
+### sklearn을 활용한 선형회귀 사용, [here](#2-regression2_pypy)
+![image](https://user-images.githubusercontent.com/69490709/224373692-4dfed40c-12fb-4acc-a626-e50a024e244f.png)
+
+### 각종 지표를 사용한 점수 반환, [here](#2-regression2_pypy)
+![image](https://user-images.githubusercontent.com/69490709/224373744-40145e94-e3e3-475d-ad30-7329eb52766d.png)
+
+### sklearn을 활용한 다항회귀 사용, [here](#2-regression2_pypy)
+![image](https://user-images.githubusercontent.com/69490709/224373966-103e2541-1849-4e3b-9d56-f0d9a236c6f8.png)
+
+### 각 모델 별 점수 반환, [here](#2-regression2_pypy)
+![image](https://user-images.githubusercontent.com/69490709/224374058-f75da1f4-6b9d-4d04-9ad0-b01220dfb992.png)
+
+### prophet을 이용한 학습, [here](#3-regression_pypy)
+![image](https://user-images.githubusercontent.com/69490709/224374294-b0849afc-171c-45df-8863-e166f0b68035.png)
+
+### prophet을 이용한 event 및 trend 반환, [here](#3-regression_pypy)
+![image](https://user-images.githubusercontent.com/69490709/224374341-4519cb02-22c3-4e6a-8126-601a5883c435.png)
+
+### prophet의 detail (일, 월, 연 별) 반환, [here](#3-regression_pypy)
+![image](https://user-images.githubusercontent.com/69490709/224374391-da090e22-e634-4c6b-afef-b6eec733eff0.png)
+
+
 ## 개선할 점
 #### 새로고침을 매일 자동으로 하는 기능 구현
 ###### + 디스코드 봇 관련 파일은 실행되도록 유지하면서, 회귀 모델을 만드는 방법은 없을지 궁금
